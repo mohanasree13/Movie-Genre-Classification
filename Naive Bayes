@@ -1,8 +1,11 @@
 from sklearn.svm import LinearSVC
+from sklearn.metrics import classification_report, accuracy_score
 # Train SVM classifier
 svm_model = LinearSVC(max_iter=1000)
 svm_model.fit(X_train_tfidf, y_train)
-# Predict and evaluate
-y_pred_svm = svm_model.predict(X_test_tfidf)
-print("SVM Accuracy:", accuracy_score(y_test, y_pred_svm))
-print("\nSVM Classification Report:\n", classification_report(y_test, y_pred_svm))
+# Predict on test set
+y_pred = svm_model.predict(X_test_tfidf)
+# Print accuracy
+print("SVM Accuracy:", accuracy_score(y_test, y_pred))
+# Print classification report with zero_division=0 to avoid warnings
+print("\nSVM Classification Report:\n", classification_report(y_test, y_pred, zero_division=0))
